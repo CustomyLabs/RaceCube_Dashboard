@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RealDashCAN version="2">
+  <frames>
+    <!-- Фрейм 1: Двигатель (ID 3200) -->
+    <frame id="3200">
+      <value targetId="37" offset="0" length="2" units="RPM"/>
+      <value targetId="64" offset="2" length="2" units="kph"/>
+      <value targetId="14" offset="4" length="1" conversion="V-40" units="C"/>
+      <value targetId="31" offset="5" length="1" units="kPa"/> <!-- Boost/MAP -->
+      <value targetId="170" offset="6" length="1" units="%"/> <!-- Топливо -->
+      <value targetId="12" offset="7" length="1" conversion="V/10" units="V"/>
+    </frame>
+    
+    <!-- Фрейм 2: Трансмиссия, Check Engine и Масленка (ID 3201) -->
+    <frame id="3201">
+      <value targetId="200" offset="0" length="1" signed="true"/> <!-- Передача -->
+      <value name="Sport Mode" offset="1" length="1"/> <!-- Спорт режим -->
+      <value targetId="164" offset="2" length="1"/> <!-- Check Engine (MIL) -->
+      <value targetId="158" offset="3" length="1"/> <!-- Масленка (Oil Pressure Warning) -->
+    </frame>
+
+    <!-- Фрейм 3: Свет и Комфорт (ID 3202) -->
+    <frame id="3202">
+      <!-- Байт 0: Свет и поворотники -->
+      <!-- 160: Левый поворотник -->
+      <value targetId="160" offset="0" length="1" units="bit" conversion="V % 2" />
+      <!-- 161: Правый поворотник -->
+      <value targetId="161" offset="0" length="1" units="bit" conversion="(V>>1) % 2" />
+      <!-- 157: Ближний свет -->
+      <value targetId="157" offset="0" length="1" units="bit" conversion="(V>>2) % 2" />
+      <!-- 156: Дальний свет -->
+      <value targetId="156" offset="0" length="1" units="bit" conversion="(V>>3) % 2" />
+      <!-- 186: Габариты -->
+      <value targetId="186" offset="0" length="1" units="bit" conversion="(V>>4) % 2" />
+      
+      <!-- Байт 1: Ручник -->
+      <value targetId="162" offset="1" length="1" units="bit" conversion="V % 2" />
+    </frame>
+  </frames>
+</RealDashCAN>
