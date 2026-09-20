@@ -1,5 +1,6 @@
 
 
+
 # RaceCube: Wireless Telemetry & TCU System 🏎️
 
 **RaceCube** is a decentralized, ESP32-based wireless CAN-bus telemetry and automatic transmission control system. It is specifically engineered for **Dodge Caliber** vehicles swapped with Mitsubishi/Chrysler **F4A42/51** and **F5A42/51** automatic transmissions.
@@ -20,7 +21,7 @@ The system utilizes a 0-latency **ESP-NOW** wireless protocol to synchronize dat
 <img width="720" height="1280" alt="436" src="https://github.com/user-attachments/assets/daa34d8f-41f6-4855-91dd-23ac1ad501cc" />
 <img width="1280" height="720" alt="76876" src="https://github.com/user-attachments/assets/255c7dfe-4fd6-4c81-b91a-93461435c556" />
 <img width="1133" height="1280" alt="75637" src="https://github.com/user-attachments/assets/e5a2e8de-012b-458f-958e-44221b15d488" />
-
+<img width="768" height="1024" alt="round" src="https://github.com/user-attachments/assets/0d60a4ba-048f-421e-812b-6d83ffec07cc" />
 
 ## 🏗️ System Architecture
 
