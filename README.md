@@ -14,39 +14,53 @@ The system utilizes a 0-latency **ESP-NOW** wireless protocol to synchronize dat
 <img width="1280" height="720" alt="BTLX7K7x-Bg55LGbyOsiAXqrZWMg0TMVj3rbpjoTcWRanbx5vmcwaHZx1Qf7IEjSYIFb_FlCxCkODaAQ2EzOXMeX" src="https://github.com/user-attachments/assets/05b43b87-6348-4213-8f5c-82869fa0032f" />
 <img width="1280" height="720" alt="454I2d743FAYN8uV84qGwtbLdiVf5vNXIWwV4CYeX7wsxxnsMqAZZMGokNxfFM9psKkLAELYZzL-XaGQiAIVrqY7" src="https://github.com/user-attachments/assets/e05bd298-5f48-4d06-b1b9-4c925a5cd654" />
 <img width="828" height="1792" alt="zVFVv_V52W_jTT1OU-eNsTS5mhaH3xWXKm5g2ikrCFFYTKhsMCUB0o8m3j3727eWFN9hBMxhfFffWpviOlL-y9_x" src="https://github.com/user-attachments/assets/b0e2f314-1468-4966-bfd3-ca10f12b04cd" />
+<img width="960" height="1280" alt="Untitled3333" src="https://github.com/user-attachments/assets/72d12b24-cafa-4e58-acf9-ff4557e3c0a6" />
+<img width="960" height="1280" alt="Untitled4444" src="https://github.com/user-attachments/assets/d9ef5414-703c-482e-bc95-3576bfa5cb00" />
+<img width="960" height="1280" alt="Untitled55" src="https://github.com/user-attachments/assets/a41c6b84-5635-46ca-a2a3-416c44b2ac08" />
+<img width="720" height="1280" alt="436" src="https://github.com/user-attachments/assets/daa34d8f-41f6-4855-91dd-23ac1ad501cc" />
+<img width="1280" height="720" alt="76876" src="https://github.com/user-attachments/assets/255c7dfe-4fd6-4c81-b91a-93461435c556" />
+<img width="1133" height="1280" alt="75637" src="https://github.com/user-attachments/assets/e5a2e8de-012b-458f-958e-44221b15d488" />
+
 
 ## 🏗️ System Architecture
 
-The RaceCube ecosystem consists of three independent ESP32 nodes working in unison:
+The RaceCube ecosystem consists of multiple ESP32 nodes working in unison:
 
-### 1. Transmission Module (Under-Hood / CAN-C Bus)
-*   **Role:** The core control unit for the gearbox.
+### 1. Transmission Module (`RaceCube_CAN_TRANSIVER_AT`)
+*   **Role:** The core control unit for the gearbox (Under-Hood / CAN-C Bus).
 *   **Functions:** 
     *   Reads physical gear selector pins (P, R, N, D, 1, 2, 3, +, -) and ATF temperature.
     *   Connects to the high-speed engine CAN-C bus to read OBD data (RPM, Speed, Coolant, Boost, Fuel, MIL, Oil Pressure).
-    *   Sends custom UDS commands to the Engine ECU to drop RPMs during gear shifts (shift-cut logic).
+    *   **Torque Reduction (Shift-Cut):** Sends custom UDS commands to the Engine ECU to artificially drop RPMs and engine load during gear shifts, ensuring smooth and safe gear engagements for swapped transmissions.
     *   Packages all data into a `SuperTelemetry` struct and broadcasts it via ESP-NOW.
 
-### 2. Comfort Module (Cabin / CAN-B Bus)
-*   **Role:** The interior state listener.
+### 2. Comfort Module (`CAN_B_REALDASH_DODGE_CALIBER`)
+*   **Role:** The interior state listener (Cabin / CAN-B Bus).
 *   **Functions:**
-    *   Listens to the low-speed cabin CAN-B bus in "Listen Only" mode.
+    *   Listens to the low-speed cabin CAN-B bus.
     *   Extracts the status of Turn Signals, High/Low Beams, Park Lights, and the Handbrake.
     *   Broadcasts a `ComfortTelemetry` struct via ESP-NOW.
 
-### 3. CYD Gateway & Display (Dashboard)
-*   **Role:** The central hub, display, and diagnostic gateway.
+### 3. CYD Gateway & Web Monitor (`CYD_Realdash_Dodge_Caliber`)
+*   **Role:** The diagnostic gateway and RealDash forwarder (Dashboard).
 *   **Functions:**
-    *   **Hardware:** Runs on an ESP32-2432S028R or similar "Cheap Yellow Display" (CYD) with an ST77916 screen and capacitive touch.
-    *   **UI:** Renders an aggressive, F1-style sweep tachometer, gear indicator, and critical warnings (e.g., flashing "LOW OIL PRESS" overlay). Supports touch gestures (swipe to change screens).
-    *   **RealDash Integration:** Combines data from Transmission and Comfort modules, formats it into custom packets, and sends it via USB Serial to the RealDash app running on an Android head unit.
-    *   **Web Monitor:** Hosts a Wi-Fi Access Point (`RACECUBE_CAN`) with a dark neon Web UI to monitor raw pin states and CAN data in real-time.
+    *   Combines data from Transmission and Comfort modules.
+    *   Formats data into custom CAN packets and sends them via USB Serial to the RealDash app running on an Android head unit.
+    *   Hosts a Wi-Fi Access Point (`RACECUBE_CAN`) with a dark neon Web UI to monitor raw pin states and CAN data in real-time.
+
+### 4. Smart Round Display (`Racecube_Round_AT`)
+*   **Role:** A standalone secondary instrument cluster.
+*   **Functions:**
+    *   Runs on an ESP32-based circular touchscreen (e.g., ST77916).
+    *   Receives `SuperTelemetry` directly via ESP-NOW.
+    *   Renders an aggressive, F1-style sweep tachometer, gear indicator, and custom gauges (Boost, AFR, ATF Temp, etc.).
+    *   Features critical safety overlays (e.g., massive flashing "LOW OIL PRESS" alert).
 
 ---
 
 ## ⚡ Wireless Communication (ESP-NOW + Wi-Fi)
 
-RaceCube solves the problem of network latency by using **ESP-NOW** for critical vehicle data. This allows the Transmission and Comfort modules to send data to the CYD Display in just a few milliseconds. 
+RaceCube solves the problem of network latency by using **ESP-NOW** for critical vehicle data. This allows the Transmission and Comfort modules to send data to the Displays in just a few milliseconds. 
 
 Simultaneously, the modules support standard **Wi-Fi** for Over-The-Air (OTA) updates and Web Diagnostics, without interrupting the ESP-NOW telemetry stream.
 
@@ -67,10 +81,7 @@ If you need to check which gear pin is active, verify CAN-bus connection, or rea
 You can update the firmware of any module wirelessly directly from the Arduino IDE, without digging under the hood or dismantling the dashboard:
 1. Ensure your laptop is connected to the `RACECUBE_CAN` Wi-Fi network.
 2. Open your sketch in the **Arduino IDE**.
-3. Go to `Tools -> Port`. You will see three network ports discovered via mDNS:
-   * 🌐 `RaceCube-CYD at 192.168.4.1`
-   * 🌐 `RaceCube-Trans at 192.168.4.x`
-   * 🌐 `RaceCube-Comfort at 192.168.4.y`
+3. Go to `Tools -> Port`. You will see the network ports discovered via mDNS (e.g., `RaceCube-Trans`, `RaceCube-Comfort`).
 4. Select the target module and click **Upload**.
 
 ---
