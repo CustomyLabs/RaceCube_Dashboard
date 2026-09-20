@@ -7,12 +7,13 @@
 The system utilizes a 0-latency **ESP-NOW** wireless protocol to synchronize data between under-hood and cabin modules, completely eliminating the need to pull bulky wiring harnesses through the firewall.
 
 ---
-<img width="828" height="1792" alt="zVFVv_V52W_jTT1OU-eNsTS5mhaH3xWXKm5g2ikrCFFYTKhsMCUB0o8m3j3727eWFN9hBMxhfFffWpviOlL-y9_x" src="https://github.com/user-attachments/assets/b0e2f314-1468-4966-bfd3-ca10f12b04cd" />
+
 <img width="640" height="480" alt="DiqJNhkPS0VUn1MjPreDkzDChizRIw4M2cwgITTdK58TJN1Hw1Yn6GHczMDFE508I_t-takj54m6CB2NZvlYg4xK" src="https://github.com/user-attachments/assets/43af99fc-03f8-466c-bd3f-2974fe24c6ee" />
 <img width="640" height="480" alt="uIsQmHDQpzdxJ8-qTZhZGK9AnnsGVKyu-rEx1c08tP-jy3dcjbnyJzqfuJQYeH1Z8itbJzxiQPRgkQwPszeELccV" src="https://github.com/user-attachments/assets/7dc8688f-a370-434a-90da-615f9bdec74a" />
 <img width="640" height="480" alt="cUFC8w9cv_jrAdwrMKmednJKwVpbVbr_rKTrtJZIaoOKswXi2BIqgVhxJfCLL9YBfnncMWuAM-MuiZxs0bH2uYFO" src="https://github.com/user-attachments/assets/ea84a879-5c94-4fcb-ad3d-ba5dc9c15af7" />
 <img width="1280" height="720" alt="BTLX7K7x-Bg55LGbyOsiAXqrZWMg0TMVj3rbpjoTcWRanbx5vmcwaHZx1Qf7IEjSYIFb_FlCxCkODaAQ2EzOXMeX" src="https://github.com/user-attachments/assets/05b43b87-6348-4213-8f5c-82869fa0032f" />
 <img width="1280" height="720" alt="454I2d743FAYN8uV84qGwtbLdiVf5vNXIWwV4CYeX7wsxxnsMqAZZMGokNxfFM9psKkLAELYZzL-XaGQiAIVrqY7" src="https://github.com/user-attachments/assets/e05bd298-5f48-4d06-b1b9-4c925a5cd654" />
+<img width="828" height="1792" alt="zVFVv_V52W_jTT1OU-eNsTS5mhaH3xWXKm5g2ikrCFFYTKhsMCUB0o8m3j3727eWFN9hBMxhfFffWpviOlL-y9_x" src="https://github.com/user-attachments/assets/b0e2f314-1468-4966-bfd3-ca10f12b04cd" />
 
 ## 🏗️ System Architecture
 
